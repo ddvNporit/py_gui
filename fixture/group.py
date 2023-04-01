@@ -1,6 +1,8 @@
 # Name : group.py
 # Author : "Denisov Dmitry"
 # Time : 31.03.2023
+import random
+
 
 class GroupHelper:
     def __init__(self, app):
@@ -35,6 +37,7 @@ class GroupHelper:
 
     def select_group_by_name(self, group_name, tree):
         tree.get_item(f'\\Contact groups\\{group_name}').click()
+
     def open_group_editor(self):
         self.app.main_window.window(auto_id="groupButton").click()
         self.group_editor = self.app.application.window(title="Group editor")
@@ -43,4 +46,17 @@ class GroupHelper:
     def close_group_editor(self):
         self.group_editor.close()
 
+    def check_count_group(self, list_group):
+        d = len(list_group)
+        if d <= 1:
+            while d < 2:
+                number = str(d)
+                self.add_new_group(f"my group  {number}")
+                d += 1
+            return True
+        else:
+            return False
 
+    def random_select_group(self, list_group):
+        group_name = random.choice([group for group in list_group if group != "Contact groups"])
+        return group_name
