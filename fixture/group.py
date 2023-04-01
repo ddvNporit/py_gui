@@ -22,6 +22,19 @@ class GroupHelper:
         input.type_keys("\n")
         self.close_group_editor()
 
+    def delete_group(self, group_name, move):
+        self.open_group_editor()
+        tree = self.group_editor.window(auto_id="uxAddressTreeView")
+        self.select_group_by_name(group_name, tree)
+        self.group_editor.window(auto_id="uxDeleteAddressButton").click()
+        self.delete_group_dialog = self.app.application.window(title="Delete group")
+        if not move:
+            self.delete_group_dialog.window(auto_id="uxDeleteAllRadioButton").check()
+        self.delete_group_dialog.window(auto_id="uxOKAddressButton").click()
+        self.close_group_editor()
+
+    def select_group_by_name(self, group_name, tree):
+        tree.get_item(f'\\Contact groups\\{group_name}').click()
     def open_group_editor(self):
         self.app.main_window.window(auto_id="groupButton").click()
         self.group_editor = self.app.application.window(title="Group editor")
@@ -29,3 +42,5 @@ class GroupHelper:
 
     def close_group_editor(self):
         self.group_editor.close()
+
+
