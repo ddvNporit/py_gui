@@ -6,6 +6,7 @@ from comtypes.client import CreateObject
 
 
 class GenerateData():
+    global n
     n = 3
     project_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
     file = os.path.join(project_dir, "groups.xlsx")
@@ -15,14 +16,15 @@ class GenerateData():
         symbols = string.ascii_letters + string.digits + " " * 10
         return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
-    def generator_data(self, n):
-        global testdata
+    def generator_data(self):
         testdata = [
             self.random_string("name", 10)
             for i in range(n)
         ]
+        return testdata
 
     def greate_file_xlsx(self, file):
+        testdata = self.generator_data()
         xl = CreateObject("Excel.Application")
         xl.Visible = 0
         wb = xl.Workbooks.Add()
