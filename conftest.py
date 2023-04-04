@@ -14,16 +14,15 @@ def app(request):
 
 def pytest_addoption(parser):
     parser.addoption("--file", action="store", default="groups.xlsx")
-    parser.addoption("--n", action="store", default="3")
     parser.addoption("--gen", action="store_true")
 
 
 @pytest.fixture
 def generation(request):
     return request.config.getoption("--gen")
-@pytest.fixture
-def count_generation(request):
-    return request.config.getoption("--n")
+# @pytest.fixture
+# def count_generation(request):
+#     return int(request.config.getoption("--n"))
 
 
 @pytest.fixture(scope="session")

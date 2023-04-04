@@ -11,6 +11,9 @@ def test_add_group(app, file_path, generation):
     file = os.path.join(project_dir, file_path)
     if not os.path.isfile(file):
         data.greate_file_xlsx(file, generation)
+    elif generation:
+        data.greate_file_xlsx(file, generation)
+
     old_list = app.groups.get_group_list()
     list_groups = data.read_data_xlsx(file)
     i = 0
